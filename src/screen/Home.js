@@ -4,11 +4,11 @@ import { View, Text, TouchableOpacity, ImageBackground, StyleSheet } from 'react
 const Home = ({ navigation }) => {
   return (
     <ImageBackground
-      source={require('../gamepad.jpg')} // Replace with your image path
+      source={require('../red.jpg')} // Replace with your image path
       style={styles.container}
     >
       <View style={styles.overlay}>
-        <Text style={styles.title}>Home Screen</Text>
+        <Text style={styles.customText}>GameSPY</Text>
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate('Login')}
@@ -21,6 +21,12 @@ const Home = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  customText: {
+    fontFamily: 'OCR A Extended Regular', // Use the actual font name you defined in react-native.config.js
+    fontSize: 40,
+    color: '#fff',
+    // Other text styles
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -33,16 +39,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
   },
-  title: {
-    fontSize: 30,
-    color: '#fff', // Text color
-    marginBottom: 20,
-  },
+ 
   button: {
     backgroundColor: '#fff',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 8,
+    marginTop: 20,
   },
   buttonText: {
     fontSize: 18,

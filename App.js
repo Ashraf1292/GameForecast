@@ -1,22 +1,17 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from './src/screen/Home'; // Import the Home component from Home.js
-import Login from './src/screen/Login'; // Import the Login component from Login.js
-import Signup from './src/screen/Signup';
 
-const Stack = createNativeStackNavigator();
+import { StyleSheet, Text, View } from 'react-native';
+import AppNavigation from './navigation/appNavigation';
 
-const App = () => {
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+// import HomeScreen from './screens/HomeScreen';
+// import GameStore from './screens/gameStore';
+
+// const Tab = createBottomTabNavigator();
+
+
+export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Signup" component={Signup} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <AppNavigation />
   );
-};
-
-export default App;
+}
