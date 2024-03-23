@@ -1,26 +1,48 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, StyleSheet } from 'react-native';
+import React, { useRef, useEffect } from 'react';
+import { View, Text, TouchableOpacity, ImageBackground, StyleSheet, Animated } from 'react-native';
 
 const Welcome = ({ navigation }) => {
-  
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const fadeIn = Animated.timing(
+      fadeAnim,
+      {
+        toValue: 1,
+        duration: 1500, 
+        useNativeDriver: true,
+      }
+    );
+
+    const fadeOut = Animated.timing(
+      fadeAnim,
+      {
+        toValue: 0,
+        duration: 1500, 
+        useNativeDriver: true,
+      }
+    );
+
+    const sequence = Animated.sequence([fadeIn, Animated.delay(1000), fadeOut, Animated.delay(1000)]);
+
+    const loop = Animated.loop(sequence);
+    loop.start();
+
+    return () => loop.stop();
+  }, [fadeAnim]);
+
   return (
     <ImageBackground
-      source={require('../red.jpg')} // Replace with your image path
+      source={require('../red.jpg')} 
       style={styles.container}
     >
       <View style={styles.overlay}>
-        <Text style={styles.customText}>GameSPY</Text>
+        <Animated.Text style={[styles.customText, { opacity: fadeAnim }]}>GameSPY</Animated.Text>
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate('Login')}
         >
           <Text style={styles.buttonText}>Game ON</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('Home')}
-        >
-          <Text style={styles.buttonText}>Home</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
@@ -29,10 +51,10 @@ const Welcome = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   customText: {
-    fontFamily: 'OCR A Extended Regular', // Use the actual font name you defined in react-native.config.js
+    fontFamily: 'OCR A Extended Regular', 
     fontSize: 50,
     color: '#fff',
-    // Other text styles
+    
   },
   container: {
     flex: 1,
@@ -41,12 +63,11 @@ const styles = StyleSheet.create({
   },
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.4)', // Overlay to make the text/button visible
+    backgroundColor: 'rgba(0,0,0,0.4)', 
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
   },
- 
   button: {
     backgroundColor: '#fff',
     paddingVertical: 10,
@@ -56,7 +77,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 18,
-    color: '#000', // Button text color
+    color: '#000', 
   },
 });
 
